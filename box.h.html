@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<title>Exported from Notepad++</title>
+<style type="text/css">
+span {
+	font-family: 'Ubuntu';
+	font-size: 9pt;
+	color: #FFFFFF;
+}
+.sc0 {
+}
+.sc1 {
+	font-style: italic;
+	color: #00FF00;
+}
+.sc2 {
+	font-style: italic;
+	color: #00FF00;
+}
+.sc4 {
+	color: #FF8000;
+}
+.sc9 {
+	color: #C0C0C0;
+}
+.sc10 {
+	color: #FFCC00;
+}
+.sc11 {
+}
+.sc16 {
+	font-weight: bold;
+	color: #00FFFF;
+}
+</style>
+</head>
+<body>
+<div style="float: left; white-space: pre; line-height: 1; background: #000000; "><span class="sc9">#ifndef __BOX_H__
+#define __BOX_H__
+</span><span class="sc0">
+</span><span class="sc9">#include &lt;at89x52.h&gt;
+</span><span class="sc0">
+</span><span class="sc2">//#define   time_wheel  50000
+</span><span class="sc9">#define time_wheel  1000                </span><span class="sc2">// 1ms
+</span><span class="sc9">#define TH_VAL  (65536-time_wheel)/256
+#define TL_VAL  (65536-time_wheel)%256
+</span><span class="sc0">
+</span><span class="sc2">//#define TIMEOUT_default   (20)
+//#define TIMEOUT_default   (1)       // 1ms * 1
+</span><span class="sc0">
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">update_switch</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0">
+</span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">tmp</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">EA</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">tmp</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">P2_0</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">P2_1</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">P2_2</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">4</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">P2_3</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">8</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">10</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0">  </span><span class="sc11">P2_4</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">P2_5</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">P2_6</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">4</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">P2_7</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc4">8</span><span class="sc10">);</span><span class="sc0">
+
+    </span><span class="sc11">EA</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">TB_GO_LR_SOTP_bit</span><span class="sc10">].</span><span class="sc11">display_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">tmp</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">LR_GO_TB_STOP_bit</span><span class="sc10">].</span><span class="sc11">display_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">tmp</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">;</span><span class="sc0">
+
+</span><span class="sc10">}</span><span class="sc0">
+ 
+</span><span class="sc16">enum</span><span class="sc0"> </span><span class="sc11">time_value</span><span class="sc0">  </span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc11">TIMEOUT_default</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">,</span><span class="sc0">       </span><span class="sc2">//   1 mS
+</span><span class="sc0">    </span><span class="sc11">time_out_1s</span><span class="sc0">     </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">1000</span><span class="sc10">,</span><span class="sc0">    </span><span class="sc2">//   1 S
+</span><span class="sc0">    </span><span class="sc11">n_ele_startup</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">13</span><span class="sc10">,</span><span class="sc0">
+</span><span class="sc10">};</span><span class="sc0">
+
+</span><span class="sc16">enum</span><span class="sc0"> </span><span class="sc11">traffic_ligh</span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc11">ALL_STOP</span><span class="sc0">        </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0xee</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc11">TB_GO_LR_SOTP</span><span class="sc0">   </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0x1e</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc11">ALL_READY</span><span class="sc0">       </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0x33</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc11">ALL_READY_2</span><span class="sc0">     </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0xff</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc11">LR_GO_TB_STOP</span><span class="sc0">   </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0x2d</span><span class="sc10">,</span><span class="sc0">
+
+    </span><span class="sc11">LR_GO_TB_STOP_bit</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">12</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc11">TB_GO_LR_SOTP_bit</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">,</span><span class="sc0">
+
+        
+</span><span class="sc10">};</span><span class="sc0">
+</span><span class="sc1">/*
+enum traffic_ligh{
+    ALL_STOP        = 0x1b,
+    TB_GO_LR_SOTP   = 0x1e,
+    ALL_READY       = 0x2d,
+    ALL_READY_2     = 0x3f,
+    LR_GO_TB_STOP   = 0x33,
+
+        
+};
+*/</span><span class="sc0">
+</span><span class="sc1">/*
+enum traffic_ligh{
+    ALL_STOP        = 0xe4,
+    TB_GO_LR_SOTP   = 0xe1,
+    ALL_READY       = 0xd2,
+    ALL_READY_2     = 0xc0,
+    LR_GO_TB_STOP   = 0xcc,
+
+        
+};
+*/</span><span class="sc0">
+
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">__code</span><span class="sc0"> </span><span class="sc11">num_left</span><span class="sc10">[]</span><span class="sc0"> </span><span class="sc10">={</span><span class="sc0">
+    </span><span class="sc4">0x0e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x1e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x2e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x3e</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc4">0x4e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x5e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x6e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x7e</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc4">0x8e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x9e</span><span class="sc10">,</span><span class="sc0">
+</span><span class="sc10">};</span><span class="sc0">
+
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">__code</span><span class="sc0"> </span><span class="sc11">num_right</span><span class="sc10">[]</span><span class="sc0"> </span><span class="sc10">={</span><span class="sc0">
+    </span><span class="sc4">0x0d</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x1d</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x2d</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x3d</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc4">0x4d</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x5d</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x6d</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x7d</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc4">0x8d</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0x9d</span><span class="sc10">,</span><span class="sc0">
+</span><span class="sc10">};</span><span class="sc0">
+
+
+
+</span><span class="sc16">struct</span><span class="sc0"> </span><span class="sc11">timer_ctrl</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">display_value</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">display_count</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc10">};</span><span class="sc0">
+</span><span class="sc16">struct</span><span class="sc0"> </span><span class="sc11">timer_ctrl</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[]</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_STOP</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">3</span><span class="sc10">},</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">TB_GO_LR_SOTP</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">20</span><span class="sc10">},</span><span class="sc0">
+
+    </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY_2</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0">
+    </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY_2</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0">
+    </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY_2</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0">
+    </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY_2</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0">
+    </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">ALL_READY_2</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">},</span><span class="sc0">
+    
+    </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc11">LR_GO_TB_STOP</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">20</span><span class="sc10">},</span><span class="sc0">
+
+
+</span><span class="sc10">};</span><span class="sc0">
+
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">interrupt_init</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0">
+</span><span class="sc10">{</span><span class="sc0">
+
+    </span><span class="sc11">IE</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0x82</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">TMOD</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0x01</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">TH0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TH_VAL</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">TL0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TL_VAL</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">TR0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">;</span><span class="sc0">
+
+</span><span class="sc10">}</span><span class="sc0">
+
+
+
+</span><span class="sc9">#endif </span><span class="sc2">// __BOX_H__
+</span></div></body>
+</html>
