@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<title>Exported from Notepad++</title>
+<style type="text/css">
+span {
+	font-family: 'Ubuntu';
+	font-size: 9pt;
+	color: #FFFFFF;
+}
+.sc0 {
+}
+.sc2 {
+	font-style: italic;
+	color: #00FF00;
+}
+.sc4 {
+	color: #FF8000;
+}
+.sc5 {
+	font-weight: bold;
+	color: #FF6600;
+}
+.sc9 {
+	color: #C0C0C0;
+}
+.sc10 {
+	font-weight: bold;
+	color: #FFCC00;
+}
+.sc11 {
+}
+.sc16 {
+	color: #66FF00;
+}
+</style>
+</head>
+<body>
+<div style="float: left; white-space: pre; line-height: 1; background: #000000; "><span class="sc9">#include &lt;at89x52.h&gt;
+#include "box.h"
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">TIMEOUT</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TIMEOUT_default</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">timer_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">sm_5_si</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">time_color</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">time_sun</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">left_right</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">ten</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">9</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">single</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">9</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">sun_show_it</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">num_left</span><span class="sc10">[</span><span class="sc4">0</span><span class="sc10">];</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">rev_number_back</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">3</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">goal_num</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">goal_color_light</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">ALL_STOP</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">core_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">core_pre_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+
+
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">display_sun</span><span class="sc10">(</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">rev_number</span><span class="sc10">);</span><span class="sc0">
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">display_color_light</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">);</span><span class="sc0">
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">interrupt_startup</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc11">__interrupt</span><span class="sc10">(</span><span class="sc4">1</span><span class="sc10">);</span><span class="sc0">
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">num_agent</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">);</span><span class="sc0">
+</span><span class="sc2">//unsigned char update_switch(void)
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">update_switch</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">);</span><span class="sc0">
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">main</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0">
+</span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc11">interrupt_init</span><span class="sc10">();</span><span class="sc0">
+    </span><span class="sc11">update_switch</span><span class="sc10">();</span><span class="sc0">
+    </span><span class="sc11">P0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0x81</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc5">for</span><span class="sc10">(;;){</span><span class="sc0">
+        </span><span class="sc11">num_agent</span><span class="sc10">();</span><span class="sc0">
+        </span><span class="sc11">display_color_light</span><span class="sc10">();</span><span class="sc0">
+
+    </span><span class="sc10">}</span><span class="sc0">
+</span><span class="sc10">}</span><span class="sc0">
+
+
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">interrupt_startup</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc11">__interrupt</span><span class="sc10">(</span><span class="sc4">1</span><span class="sc10">)</span><span class="sc0">
+</span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc11">TH0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TH_VAL</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">TL0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TL_VAL</span><span class="sc10">;</span><span class="sc0">
+
+    </span><span class="sc5">if</span><span class="sc0"> </span><span class="sc10">(++</span><span class="sc11">timer_count</span><span class="sc0"> </span><span class="sc10">==</span><span class="sc0"> </span><span class="sc11">TIMEOUT</span><span class="sc10">){</span><span class="sc0">
+          </span><span class="sc11">timer_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc10">++</span><span class="sc11">time_color</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc10">++</span><span class="sc11">sm_5_si</span><span class="sc10">;</span><span class="sc0">
+
+    </span><span class="sc10">}</span><span class="sc0">
+    </span><span class="sc5">if</span><span class="sc10">(++</span><span class="sc11">core_pre_count</span><span class="sc0"> </span><span class="sc10">&gt;=</span><span class="sc0"> </span><span class="sc11">time_out_1s</span><span class="sc10">){</span><span class="sc0">
+        </span><span class="sc10">++</span><span class="sc11">core_count</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc11">core_pre_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc10">}</span><span class="sc0">
+
+
+    </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">core_count</span><span class="sc0"> </span><span class="sc10">==</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc10">].</span><span class="sc11">display_count</span><span class="sc10">){</span><span class="sc0">
+        </span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">&gt;</span><span class="sc0"> </span><span class="sc11">n_ele_startup</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">?</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc0"> </span><span class="sc10">:</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc10">++</span><span class="sc11">i</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc11">goal_num</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc10">].</span><span class="sc11">display_value</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc11">goal_color_light</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc10">].</span><span class="sc11">display_value</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc11">rev_number_back</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc10">].</span><span class="sc11">display_count</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc11">core_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;;</span><span class="sc0">
+       </span><span class="sc11">update_switch</span><span class="sc10">();</span><span class="sc0">
+
+    </span><span class="sc10">}</span><span class="sc0">
+
+</span><span class="sc10">}</span><span class="sc0">
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">display_sun</span><span class="sc10">(</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">)</span><span class="sc0">
+</span><span class="sc10">{</span><span class="sc0">
+       </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">&gt;=</span><span class="sc0"> </span><span class="sc4">100</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">&amp;&amp;</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">&lt;=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">)){</span><span class="sc0">
+           </span><span class="sc11">show_num</span><span class="sc0">  </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">99</span><span class="sc10">;</span><span class="sc0">
+            </span><span class="sc11">ten</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">9</span><span class="sc10">;</span><span class="sc0">
+            </span><span class="sc11">single</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc4">9</span><span class="sc10">;</span><span class="sc0">
+       </span><span class="sc10">}</span><span class="sc0">
+
+        </span><span class="sc11">ten</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc4">10</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc11">single</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">%</span><span class="sc0"> </span><span class="sc4">10</span><span class="sc10">;</span><span class="sc0">
+       
+
+       </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">left_right</span><span class="sc0"> </span><span class="sc10">%</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">){</span><span class="sc0">
+            </span><span class="sc11">sun_show_it</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">num_left</span><span class="sc10">[</span><span class="sc11">ten</span><span class="sc10">];</span><span class="sc0">
+       </span><span class="sc10">}</span><span class="sc5">else</span><span class="sc10">{</span><span class="sc0">
+            </span><span class="sc11">sun_show_it</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">num_right</span><span class="sc10">[</span><span class="sc11">single</span><span class="sc10">];</span><span class="sc0">
+       </span><span class="sc10">}</span><span class="sc0">
+
+       </span><span class="sc11">P1</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">sun_show_it</span><span class="sc10">;</span><span class="sc0">
+       </span><span class="sc10">++</span><span class="sc11">left_right</span><span class="sc10">;</span><span class="sc0">
+
+</span><span class="sc10">}</span><span class="sc0">
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">display_color_light</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0">
+</span><span class="sc10">{</span><span class="sc0">
+        </span><span class="sc11">P0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">goal_color_light</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc10">}</span><span class="sc0">
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">num_agent</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0">
+</span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">sm_5_si</span><span class="sc0"> </span><span class="sc10">&gt;=</span><span class="sc0"> </span><span class="sc11">time_out_1s</span><span class="sc10">){</span><span class="sc0">
+        </span><span class="sc10">--</span><span class="sc11">rev_number_back</span><span class="sc10">;</span><span class="sc0">
+        </span><span class="sc11">sm_5_si</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc10">}</span><span class="sc5">else</span><span class="sc0"> </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">sm_5_si</span><span class="sc0"> </span><span class="sc10">&lt;</span><span class="sc0"> </span><span class="sc11">time_out_1s</span><span class="sc10">){</span><span class="sc0">
+        </span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc10">}</span><span class="sc0">
+
+    </span><span class="sc11">display_sun</span><span class="sc10">(</span><span class="sc11">rev_number_back</span><span class="sc10">);</span><span class="sc0">
+
+</span><span class="sc10">}</span><span class="sc0">
+</span></div></body>
+</html>
