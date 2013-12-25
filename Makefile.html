@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<title>Exported from Notepad++</title>
+<style type="text/css">
+span {
+	font-family: 'Ubuntu';
+	font-size: 9pt;
+	color: #FFFFFF;
+}
+.sc0 {
+}
+.sc1 {
+	font-style: italic;
+	color: #00FF00;
+}
+.sc3 {
+	color: #FF6600;
+}
+.sc4 {
+	font-weight: bold;
+}
+.sc5 {
+	color: #99CC99;
+}
+</style>
+</head>
+<body>
+<div style="float: left; white-space: pre; line-height: 1; background: #000000; "><span class="sc3">CC</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0"> sdcc
+</span><span class="sc3">FLAGS</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0">  -mmcs51 --model-small 
+</span><span class="sc1">#FILENAME  == project.c
+</span><span class="sc3">FILENAME</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0"> source
+</span><span class="sc3">MAKEHEX</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0"> packihx
+</span><span class="sc3">SRC</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0"> src
+
+</span><span class="sc1">#sdcc -mmcs51 --model-small hw.c
+</span><span class="sc0">
+</span><span class="sc5">all</span><span class="sc4">:</span><span class="sc0"> project.hex
+    cp </span><span class="sc3">$(FILENAME)</span><span class="sc0">.hex  project.hex
+
+</span><span class="sc5">project.hex</span><span class="sc4">:</span><span class="sc0"> </span><span class="sc3">$(FILENAME)</span><span class="sc0">.ihx
+    </span><span class="sc3">$(MAKEHEX)</span><span class="sc0"> </span><span class="sc3">$(FILENAME)</span><span class="sc0">.ihx &gt;&gt; ./</span><span class="sc3">$(FILENAME)</span><span class="sc0">.hex
+
+</span><span class="sc3">$(FILENAME)</span><span class="sc5">.ihx</span><span class="sc4">:</span><span class="sc0">
+    </span><span class="sc3">$(CC)</span><span class="sc0"> </span><span class="sc3">$(FLAGS)</span><span class="sc0"> </span><span class="sc3">$(SRC)</span><span class="sc0">/</span><span class="sc3">$(FILENAME)</span><span class="sc0">.c
+
+</span><span class="sc5">.PHONY</span><span class="sc4">:</span><span class="sc0"> clean
+
+</span><span class="sc5">clean</span><span class="sc4">:</span><span class="sc0">
+    -rm *.hex *.ihx
+
+
+</span><span class="sc5">rebuild</span><span class="sc4">:</span><span class="sc0">
+    -rm *.hex *.ihx *.mem *.bin *.lst *.cdb *.asm *.lk *.map *.omf *.rel
+    make
+</span></div></body>
+</html>
