@@ -10,19 +10,34 @@
 
 //#define TIMEOUT_default	(20)
 //#define TIMEOUT_default	(1)       // 1ms * 1
+
+void update_switch(void)
+{
+    unsigned char tmp;
+    EA = 0;
+    tmp = ( (P2_0 * 1 + P2_1 * 2 + P2_2 * 4 + P2_3 * 8) * 10 +  P2_4 * 1 + P2_5 * 2 + P2_6 * 4 + P2_7 * 8);
+
+    EA = 1;
+    startup[TB_GO_LR_SOTP_bit].display_count = tmp + 1;
+    startup[LR_GO_TB_STOP_bit].display_count = tmp + 1;
+
+}
  
 enum time_value  {
     TIMEOUT_default = 1,       //   1 mS
     time_out_1s     = 1000,    //   1 S
-    n_ele_startup = 4,
+    n_ele_startup = 13,
 };
 
 enum traffic_ligh{
     ALL_STOP        = 0xee,
     TB_GO_LR_SOTP   = 0x1e,
     ALL_READY       = 0x33,
-    ALL_READY_2     = 0x3f,
+    ALL_READY_2     = 0xff,
     LR_GO_TB_STOP   = 0x2d,
+
+    LR_GO_TB_STOP_bit = 12,
+    TB_GO_LR_SOTP_bit = 1,
 
         
 };
@@ -69,7 +84,14 @@ struct timer_ctrl {
 };
 struct timer_ctrl startup[] = {
     { ALL_STOP, 3}, { TB_GO_LR_SOTP, 20},
-    { ALL_READY, 5}, { LR_GO_TB_STOP, 20},
+
+    { ALL_READY, 1}, { ALL_READY_2, 1},
+    { ALL_READY, 1}, { ALL_READY_2, 1},
+    { ALL_READY, 1}, { ALL_READY_2, 1},
+    { ALL_READY, 1}, { ALL_READY_2, 1},
+    { ALL_READY, 1}, { ALL_READY_2, 1},
+    
+    { LR_GO_TB_STOP, 20},
 
 
 };
