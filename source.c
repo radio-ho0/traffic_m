@@ -22,24 +22,16 @@ void display_sun(unsigned int rev_number);
 void display_color_light(void);
 void interrupt_startup(void) __interrupt(1);
 void num_agent(void);
+//unsigned char update_switch(void)
+void update_switch(void);
 
 void main(void)
 {
-    unsigned char tmp;
     interrupt_init();
-
-   tmp = ( (P2_0 * 1 + P2_1 * 2 + P2_2 * 4 + P2_3 * 8) * 10 +  P2_4 * 1 + P2_5 * 2 + P2_6 * 4 + P2_7 * 8);
-
-   startup[1].display_count = tmp + 1;
-   startup[3].display_count = tmp + 1;
-
-
-
-
+    update_switch();
     P0 = 0x81;
     for(;;){
         num_agent();
-//        display_sun(11);
         display_color_light();
 
 	}
@@ -71,6 +63,7 @@ void interrupt_startup(void) __interrupt(1)
         goal_color_light = startup[i].display_value;
         rev_number_back = startup[i].display_count;
         core_count = 0;;
+       update_switch();
 
     }
 
