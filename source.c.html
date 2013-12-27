@@ -1,152 +1,191 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<META http-equiv=Content-Type content="text/html; charset=windows-1252">
-<title>Exported from Notepad++</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>source.c.html</title>
+<meta name="Generator" content="Vim/7.4">
+<meta name="plugin-version" content="vim7.4_v1">
+<meta name="syntax" content="c">
+<meta name="settings" content="number_lines,use_css,pre_wrap,no_foldcolumn,expand_tabs,line_ids,prevent_copy=">
+<meta name="colorscheme" content="distinguished">
 <style type="text/css">
-span {
-	font-family: 'Ubuntu';
-	font-size: 9pt;
-	color: #FFFFFF;
-}
-.sc0 {
-}
-.sc2 {
-	font-style: italic;
-	color: #00FF00;
-}
-.sc4 {
-	color: #FF8000;
-}
-.sc5 {
-	font-weight: bold;
-	color: #FF6600;
-}
-.sc9 {
-	color: #C0C0C0;
-}
-.sc10 {
-	font-weight: bold;
-	color: #FFCC00;
-}
-.sc11 {
-}
-.sc16 {
-	color: #66FF00;
-}
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #ffffff; background-color: #000000; }
+body { font-family: monospace; color: #ffffff; background-color: #000000; }
+* { font-size: 1em; }
+.String { color: #afaf5f; }
+.Number { color: #d7875f; }
+.Include { color: #d7875f; }
+.LineNr { color: #767676; background-color: #262626; padding-bottom: 1px; }
+.Comment { color: #767676; background-color: #121212; padding-bottom: 1px; }
+.Type { color: #5f87af; font-weight: bold; }
+.Statement { color: #d7d787; font-weight: bold; }
+-->
 </style>
+
+<script type='text/javascript'>
+<!--
+
+/* function to open any folds containing a jumped-to line before jumping to it */
+function JumpToLine()
+{
+  var lineNum;
+  lineNum = window.location.hash;
+  lineNum = lineNum.substr(1); /* strip off '#' */
+
+  if (lineNum.indexOf('L') == -1) {
+    lineNum = 'L'+lineNum;
+  }
+  lineElem = document.getElementById(lineNum);
+  /* Always jump to new location even if the line was hidden inside a fold, or
+   * we corrected the raw number to a line ID.
+   */
+  if (lineElem) {
+    lineElem.scrollIntoView(true);
+  }
+  return true;
+}
+if ('onhashchange' in window) {
+  window.onhashchange = JumpToLine;
+}
+
+-->
+</script>
 </head>
-<body>
-<div style="float: left; white-space: pre; line-height: 1; background: #000000; "><span class="sc9">#include &lt;at89x52.h&gt;
-#include "box.h"
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">TIMEOUT</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TIMEOUT_default</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">timer_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">sm_5_si</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">time_color</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">time_sun</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">left_right</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">ten</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">9</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">single</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">9</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">sun_show_it</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">num_left</span><span class="sc10">[</span><span class="sc4">0</span><span class="sc10">];</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">rev_number_back</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">3</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">goal_num</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc11">goal_color_light</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">ALL_STOP</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">core_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">core_pre_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-
-
-
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">display_sun</span><span class="sc10">(</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">rev_number</span><span class="sc10">);</span><span class="sc0">
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">display_color_light</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">);</span><span class="sc0">
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">interrupt_startup</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc11">__interrupt</span><span class="sc10">(</span><span class="sc4">1</span><span class="sc10">);</span><span class="sc0">
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">num_agent</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">);</span><span class="sc0">
-</span><span class="sc2">//unsigned char update_switch(void)
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">update_switch</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">);</span><span class="sc0">
-
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">main</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0">
-</span><span class="sc10">{</span><span class="sc0">
-    </span><span class="sc11">interrupt_init</span><span class="sc10">();</span><span class="sc0">
-    </span><span class="sc11">update_switch</span><span class="sc10">();</span><span class="sc0">
-    </span><span class="sc11">P0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0x81</span><span class="sc10">;</span><span class="sc0">
-    </span><span class="sc5">for</span><span class="sc10">(;;){</span><span class="sc0">
-        </span><span class="sc11">num_agent</span><span class="sc10">();</span><span class="sc0">
-        </span><span class="sc11">display_color_light</span><span class="sc10">();</span><span class="sc0">
-
-    </span><span class="sc10">}</span><span class="sc0">
-</span><span class="sc10">}</span><span class="sc0">
-
-
-
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">interrupt_startup</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc11">__interrupt</span><span class="sc10">(</span><span class="sc4">1</span><span class="sc10">)</span><span class="sc0">
-</span><span class="sc10">{</span><span class="sc0">
-    </span><span class="sc11">TH0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TH_VAL</span><span class="sc10">;</span><span class="sc0">
-    </span><span class="sc11">TL0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TL_VAL</span><span class="sc10">;</span><span class="sc0">
-
-    </span><span class="sc5">if</span><span class="sc0"> </span><span class="sc10">(++</span><span class="sc11">timer_count</span><span class="sc0"> </span><span class="sc10">==</span><span class="sc0"> </span><span class="sc11">TIMEOUT</span><span class="sc10">){</span><span class="sc0">
-          </span><span class="sc11">timer_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc10">++</span><span class="sc11">time_color</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc10">++</span><span class="sc11">sm_5_si</span><span class="sc10">;</span><span class="sc0">
-
-    </span><span class="sc10">}</span><span class="sc0">
-    </span><span class="sc5">if</span><span class="sc10">(++</span><span class="sc11">core_pre_count</span><span class="sc0"> </span><span class="sc10">&gt;=</span><span class="sc0"> </span><span class="sc11">time_out_1s</span><span class="sc10">){</span><span class="sc0">
-        </span><span class="sc10">++</span><span class="sc11">core_count</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc11">core_pre_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-    </span><span class="sc10">}</span><span class="sc0">
-
-
-    </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">core_count</span><span class="sc0"> </span><span class="sc10">==</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc10">].</span><span class="sc11">display_count</span><span class="sc10">){</span><span class="sc0">
-        </span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">&gt;</span><span class="sc0"> </span><span class="sc11">n_ele_startup</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">?</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc0"> </span><span class="sc10">:</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc10">++</span><span class="sc11">i</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc11">goal_num</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc10">].</span><span class="sc11">display_value</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc11">goal_color_light</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc10">].</span><span class="sc11">display_value</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc11">rev_number_back</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">startup</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc10">].</span><span class="sc11">display_count</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc11">core_count</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;;</span><span class="sc0">
-       </span><span class="sc11">update_switch</span><span class="sc10">();</span><span class="sc0">
-
-    </span><span class="sc10">}</span><span class="sc0">
-
-</span><span class="sc10">}</span><span class="sc0">
-
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">display_sun</span><span class="sc10">(</span><span class="sc16">unsigned</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">)</span><span class="sc0">
-</span><span class="sc10">{</span><span class="sc0">
-       </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">&gt;=</span><span class="sc0"> </span><span class="sc4">100</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">&amp;&amp;</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">&lt;=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">)){</span><span class="sc0">
-           </span><span class="sc11">show_num</span><span class="sc0">  </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">99</span><span class="sc10">;</span><span class="sc0">
-            </span><span class="sc11">ten</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">9</span><span class="sc10">;</span><span class="sc0">
-            </span><span class="sc11">single</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc4">9</span><span class="sc10">;</span><span class="sc0">
-       </span><span class="sc10">}</span><span class="sc0">
-
-        </span><span class="sc11">ten</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc4">10</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc11">single</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">show_num</span><span class="sc0"> </span><span class="sc10">%</span><span class="sc0"> </span><span class="sc4">10</span><span class="sc10">;</span><span class="sc0">
-       
-
-       </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">left_right</span><span class="sc0"> </span><span class="sc10">%</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">){</span><span class="sc0">
-            </span><span class="sc11">sun_show_it</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">num_left</span><span class="sc10">[</span><span class="sc11">ten</span><span class="sc10">];</span><span class="sc0">
-       </span><span class="sc10">}</span><span class="sc5">else</span><span class="sc10">{</span><span class="sc0">
-            </span><span class="sc11">sun_show_it</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">num_right</span><span class="sc10">[</span><span class="sc11">single</span><span class="sc10">];</span><span class="sc0">
-       </span><span class="sc10">}</span><span class="sc0">
-
-       </span><span class="sc11">P1</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">sun_show_it</span><span class="sc10">;</span><span class="sc0">
-       </span><span class="sc10">++</span><span class="sc11">left_right</span><span class="sc10">;</span><span class="sc0">
-
-</span><span class="sc10">}</span><span class="sc0">
-
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">display_color_light</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0">
-</span><span class="sc10">{</span><span class="sc0">
-        </span><span class="sc11">P0</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">goal_color_light</span><span class="sc10">;</span><span class="sc0">
-</span><span class="sc10">}</span><span class="sc0">
-
-</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">num_agent</span><span class="sc10">(</span><span class="sc16">void</span><span class="sc10">)</span><span class="sc0">
-</span><span class="sc10">{</span><span class="sc0">
-    </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">sm_5_si</span><span class="sc0"> </span><span class="sc10">&gt;=</span><span class="sc0"> </span><span class="sc11">time_out_1s</span><span class="sc10">){</span><span class="sc0">
-        </span><span class="sc10">--</span><span class="sc11">rev_number_back</span><span class="sc10">;</span><span class="sc0">
-        </span><span class="sc11">sm_5_si</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
-    </span><span class="sc10">}</span><span class="sc5">else</span><span class="sc0"> </span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">sm_5_si</span><span class="sc0"> </span><span class="sc10">&lt;</span><span class="sc0"> </span><span class="sc11">time_out_1s</span><span class="sc10">){</span><span class="sc0">
-        </span><span class="sc10">;</span><span class="sc0">
-    </span><span class="sc10">}</span><span class="sc0">
-
-    </span><span class="sc11">display_sun</span><span class="sc10">(</span><span class="sc11">rev_number_back</span><span class="sc10">);</span><span class="sc0">
-
-</span><span class="sc10">}</span><span class="sc0">
-</span></div></body>
+<body onload='JumpToLine();'>
+<pre id='vimCodeElement'>
+<span id="L1" class="LineNr">  1 </span><span class="Include">#include </span><span class="String">&lt;at89x52.h&gt;</span>
+<span id="L2" class="LineNr">  2 </span><span class="Include">#include </span><span class="String">&quot;box.h&quot;</span>
+<span id="L3" class="LineNr">  3 </span><span class="Type">unsigned</span> <span class="Type">int</span> TIMEOUT = TIMEOUT_default;
+<span id="L4" class="LineNr">  4 </span><span class="Type">unsigned</span> <span class="Type">int</span> timer_count = <span class="Number">0</span>;
+<span id="L5" class="LineNr">  5 </span><span class="Type">unsigned</span> <span class="Type">int</span> sm_5_si;
+<span id="L6" class="LineNr">  6 </span><span class="Type">unsigned</span> <span class="Type">int</span> time_color = <span class="Number">0</span>;
+<span id="L7" class="LineNr">  7 </span><span class="Type">unsigned</span> <span class="Type">int</span> time_sun = <span class="Number">0</span>;
+<span id="L8" class="LineNr">  8 </span><span class="Type">unsigned</span> <span class="Type">char</span> left_right = <span class="Number">0</span>;
+<span id="L9" class="LineNr">  9 </span><span class="Type">unsigned</span> <span class="Type">char</span> ten = <span class="Number">9</span>;
+<span id="L10" class="LineNr"> 10 </span><span class="Type">unsigned</span> <span class="Type">char</span> single = <span class="Number">9</span>;
+<span id="L11" class="LineNr"> 11 </span><span class="Type">unsigned</span> <span class="Type">int</span> sun_show_it = num_left[<span class="Number">0</span>];
+<span id="L12" class="LineNr"> 12 </span><span class="Type">unsigned</span> <span class="Type">char</span> i = <span class="Number">0</span>;
+<span id="L13" class="LineNr"> 13 </span><span class="Type">unsigned</span> <span class="Type">char</span> rev_number_back = <span class="Number">3</span>;
+<span id="L14" class="LineNr"> 14 </span><span class="Type">unsigned</span> <span class="Type">char</span> goal_num = <span class="Number">0</span>;
+<span id="L15" class="LineNr"> 15 </span><span class="Type">unsigned</span> <span class="Type">char</span> goal_color_light = ALL_STOP;
+<span id="L16" class="LineNr"> 16 </span><span class="Type">unsigned</span> <span class="Type">int</span> core_count = <span class="Number">0</span>;
+<span id="L17" class="LineNr"> 17 </span><span class="Type">unsigned</span> <span class="Type">int</span> core_pre_count = <span class="Number">0</span>;
+<span id="L18" class="LineNr"> 18 </span>
+<span id="L19" class="LineNr"> 19 </span>
+<span id="L20" class="LineNr"> 20 </span>
+<span id="L21" class="LineNr"> 21 </span><span class="Type">void</span> display_sun(<span class="Type">unsigned</span> <span class="Type">int</span> rev_number);
+<span id="L22" class="LineNr"> 22 </span><span class="Type">void</span> display_color_light(<span class="Type">void</span>);
+<span id="L23" class="LineNr"> 23 </span><span class="Type">void</span> interrupt_startup(<span class="Type">void</span>) __interrupt(<span class="Number">1</span>);
+<span id="L24" class="LineNr"> 24 </span><span class="Type">void</span> num_agent(<span class="Type">void</span>);
+<span id="L25" class="LineNr"> 25 </span><span class="Comment">//unsigned char update_switch(void)</span>
+<span id="L26" class="LineNr"> 26 </span><span class="Type">void</span> update_switch(<span class="Type">void</span>)
+<span id="L27" class="LineNr"> 27 </span>{
+<span id="L28" class="LineNr"> 28 </span>    <span class="Type">unsigned</span> <span class="Type">char</span> tmp;
+<span id="L29" class="LineNr"> 29 </span>    EA = <span class="Number">0</span>;
+<span id="L30" class="LineNr"> 30 </span>    tmp = ( (P2_0 * <span class="Number">1</span> + P2_1 * <span class="Number">2</span> + P2_2 * <span class="Number">4</span> + P2_3 * <span class="Number">8</span>) * <span class="Number">10</span> +  P2_4 * <span class="Number">1</span> + P2_5 * <span class="Number">2</span> + P2_6 * <span class="Number">4</span> + P2_7 * <span class="Number">8</span>);
+<span id="L31" class="LineNr"> 31 </span>
+<span id="L32" class="LineNr"> 32 </span>    EA = <span class="Number">1</span>;
+<span id="L33" class="LineNr"> 33 </span>    startup[TB_GO_LR_SOTP_bit].display_count = tmp + <span class="Number">1</span>;
+<span id="L34" class="LineNr"> 34 </span>    startup[LR_GO_TB_STOP_bit].display_count = tmp + <span class="Number">1</span>;
+<span id="L35" class="LineNr"> 35 </span>  <span class="Comment">//  return tmp + 1;</span>
+<span id="L36" class="LineNr"> 36 </span>
+<span id="L37" class="LineNr"> 37 </span>}
+<span id="L38" class="LineNr"> 38 </span>
+<span id="L39" class="LineNr"> 39 </span><span class="Type">void</span> main(<span class="Type">void</span>)
+<span id="L40" class="LineNr"> 40 </span>{
+<span id="L41" class="LineNr"> 41 </span>    interrupt_init();
+<span id="L42" class="LineNr"> 42 </span>
+<span id="L43" class="LineNr"> 43 </span>
+<span id="L44" class="LineNr"> 44 </span><span class="Comment">//   startup[1].display_count = tmp + 1;</span>
+<span id="L45" class="LineNr"> 45 </span><span class="Comment">//   startup[3].display_count = tmp + 1;</span>
+<span id="L46" class="LineNr"> 46 </span>
+<span id="L47" class="LineNr"> 47 </span>    update_switch();
+<span id="L48" class="LineNr"> 48 </span>
+<span id="L49" class="LineNr"> 49 </span>
+<span id="L50" class="LineNr"> 50 </span>
+<span id="L51" class="LineNr"> 51 </span>    P0 = <span class="Number">0x81</span>;
+<span id="L52" class="LineNr"> 52 </span>    <span class="Statement">for</span>(;;){
+<span id="L53" class="LineNr"> 53 </span>        num_agent();
+<span id="L54" class="LineNr"> 54 </span><span class="Comment">//        display_sun(11);</span>
+<span id="L55" class="LineNr"> 55 </span>        display_color_light();
+<span id="L56" class="LineNr"> 56 </span>
+<span id="L57" class="LineNr"> 57 </span>    }
+<span id="L58" class="LineNr"> 58 </span>}
+<span id="L59" class="LineNr"> 59 </span>
+<span id="L60" class="LineNr"> 60 </span>
+<span id="L61" class="LineNr"> 61 </span>
+<span id="L62" class="LineNr"> 62 </span><span class="Type">void</span> interrupt_startup(<span class="Type">void</span>) __interrupt(<span class="Number">1</span>)
+<span id="L63" class="LineNr"> 63 </span>{
+<span id="L64" class="LineNr"> 64 </span>    TH0 = TH_VAL;
+<span id="L65" class="LineNr"> 65 </span>    TL0 = TL_VAL;
+<span id="L66" class="LineNr"> 66 </span>
+<span id="L67" class="LineNr"> 67 </span>    <span class="Statement">if</span> (++timer_count == TIMEOUT){
+<span id="L68" class="LineNr"> 68 </span>          timer_count = <span class="Number">0</span>;
+<span id="L69" class="LineNr"> 69 </span>        ++time_color;
+<span id="L70" class="LineNr"> 70 </span>        ++sm_5_si;
+<span id="L71" class="LineNr"> 71 </span>
+<span id="L72" class="LineNr"> 72 </span>    }
+<span id="L73" class="LineNr"> 73 </span>    <span class="Statement">if</span>(++core_pre_count &gt;= time_out_1s){
+<span id="L74" class="LineNr"> 74 </span>        ++core_count;
+<span id="L75" class="LineNr"> 75 </span>        core_pre_count = <span class="Number">0</span>;
+<span id="L76" class="LineNr"> 76 </span>    }
+<span id="L77" class="LineNr"> 77 </span>
+<span id="L78" class="LineNr"> 78 </span>
+<span id="L79" class="LineNr"> 79 </span>    <span class="Statement">if</span>(core_count == startup[i].display_count){
+<span id="L80" class="LineNr"> 80 </span>        i = (i &gt; n_ele_startup ) ? <span class="Number">0</span> : i; <span class="Comment">// todo</span>
+<span id="L81" class="LineNr"> 81 </span>        ++i;
+<span id="L82" class="LineNr"> 82 </span>        goal_num = startup[i].display_value;
+<span id="L83" class="LineNr"> 83 </span>        goal_color_light = startup[i].display_value;
+<span id="L84" class="LineNr"> 84 </span>        rev_number_back = startup[i].display_count;
+<span id="L85" class="LineNr"> 85 </span>        core_count = <span class="Number">0</span>;;
+<span id="L86" class="LineNr"> 86 </span>       update_switch();
+<span id="L87" class="LineNr"> 87 </span>
+<span id="L88" class="LineNr"> 88 </span>    }
+<span id="L89" class="LineNr"> 89 </span>
+<span id="L90" class="LineNr"> 90 </span>}
+<span id="L91" class="LineNr"> 91 </span>
+<span id="L92" class="LineNr"> 92 </span><span class="Type">void</span> display_sun(<span class="Type">unsigned</span> <span class="Type">int</span> show_num )
+<span id="L93" class="LineNr"> 93 </span>{
+<span id="L94" class="LineNr"> 94 </span>       <span class="Statement">if</span>( (show_num &gt;= <span class="Number">100</span>) || (show_num &lt;= <span class="Number">0</span>)){
+<span id="L95" class="LineNr"> 95 </span>           show_num  = <span class="Number">99</span>;
+<span id="L96" class="LineNr"> 96 </span>            ten = <span class="Number">9</span>;
+<span id="L97" class="LineNr"> 97 </span>            single =<span class="Number">9</span>;
+<span id="L98" class="LineNr"> 98 </span>       }
+<span id="L99" class="LineNr"> 99 </span>
+<span id="L100" class="LineNr">100 </span>        ten = show_num / <span class="Number">10</span>;
+<span id="L101" class="LineNr">101 </span>        single = show_num % <span class="Number">10</span>;
+<span id="L102" class="LineNr">102 </span>
+<span id="L103" class="LineNr">103 </span>
+<span id="L104" class="LineNr">104 </span>       <span class="Statement">if</span>(left_right % <span class="Number">2</span>){
+<span id="L105" class="LineNr">105 </span>            sun_show_it = num_left[ten];
+<span id="L106" class="LineNr">106 </span>       }<span class="Statement">else</span>{
+<span id="L107" class="LineNr">107 </span>            sun_show_it = num_right[single];
+<span id="L108" class="LineNr">108 </span>       }
+<span id="L109" class="LineNr">109 </span>
+<span id="L110" class="LineNr">110 </span>       P1 = sun_show_it;
+<span id="L111" class="LineNr">111 </span>       ++left_right;
+<span id="L112" class="LineNr">112 </span>
+<span id="L113" class="LineNr">113 </span>}
+<span id="L114" class="LineNr">114 </span>
+<span id="L115" class="LineNr">115 </span><span class="Type">void</span> display_color_light(<span class="Type">void</span>)
+<span id="L116" class="LineNr">116 </span>{
+<span id="L117" class="LineNr">117 </span>        P0 = goal_color_light;
+<span id="L118" class="LineNr">118 </span>}
+<span id="L119" class="LineNr">119 </span>
+<span id="L120" class="LineNr">120 </span><span class="Type">void</span> num_agent(<span class="Type">void</span>)
+<span id="L121" class="LineNr">121 </span>{
+<span id="L122" class="LineNr">122 </span>    <span class="Statement">if</span>(sm_5_si &gt;= time_out_1s){
+<span id="L123" class="LineNr">123 </span>        --rev_number_back;
+<span id="L124" class="LineNr">124 </span>        sm_5_si = <span class="Number">0</span>;
+<span id="L125" class="LineNr">125 </span>    }<span class="Statement">else</span> <span class="Statement">if</span>(sm_5_si &lt; time_out_1s){
+<span id="L126" class="LineNr">126 </span>        ;
+<span id="L127" class="LineNr">127 </span>    }
+<span id="L128" class="LineNr">128 </span>
+<span id="L129" class="LineNr">129 </span>    display_sun(rev_number_back);
+<span id="L130" class="LineNr">130 </span>
+<span id="L131" class="LineNr">131 </span>}
+</pre>
+</body>
 </html>
+<!-- vim: set foldmethod=manual : -->
