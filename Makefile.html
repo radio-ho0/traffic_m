@@ -1,58 +1,87 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<META http-equiv=Content-Type content="text/html; charset=windows-1252">
-<title>Exported from Notepad++</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Makefile.html</title>
+<meta name="Generator" content="Vim/7.4">
+<meta name="plugin-version" content="vim7.4_v1">
+<meta name="syntax" content="make">
+<meta name="settings" content="number_lines,use_css,pre_wrap,no_foldcolumn,expand_tabs,line_ids,prevent_copy=">
+<meta name="colorscheme" content="distinguished">
 <style type="text/css">
-span {
-	font-family: 'Ubuntu';
-	font-size: 9pt;
-	color: #FFFFFF;
-}
-.sc0 {
-}
-.sc1 {
-	font-style: italic;
-	color: #00FF00;
-}
-.sc3 {
-	color: #FF6600;
-}
-.sc4 {
-	font-weight: bold;
-}
-.sc5 {
-	color: #99CC99;
-}
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #ffffff; background-color: #000000; }
+body { font-family: monospace; color: #ffffff; background-color: #000000; }
+* { font-size: 1em; }
+.Function { color: #d7af5f; }
+.Number { color: #d7875f; }
+.Statement { color: #d7d787; font-weight: bold; }
+.LineNr { color: #767676; background-color: #262626; padding-bottom: 1px; }
+.Comment { color: #767676; background-color: #121212; padding-bottom: 1px; }
+.Special { color: #afd787; }
+.Identifier { color: #5f8787; font-weight: bold; }
+-->
 </style>
+
+<script type='text/javascript'>
+<!--
+
+/* function to open any folds containing a jumped-to line before jumping to it */
+function JumpToLine()
+{
+  var lineNum;
+  lineNum = window.location.hash;
+  lineNum = lineNum.substr(1); /* strip off '#' */
+
+  if (lineNum.indexOf('L') == -1) {
+    lineNum = 'L'+lineNum;
+  }
+  lineElem = document.getElementById(lineNum);
+  /* Always jump to new location even if the line was hidden inside a fold, or
+   * we corrected the raw number to a line ID.
+   */
+  if (lineElem) {
+    lineElem.scrollIntoView(true);
+  }
+  return true;
+}
+if ('onhashchange' in window) {
+  window.onhashchange = JumpToLine;
+}
+
+-->
+</script>
 </head>
-<body>
-<div style="float: left; white-space: pre; line-height: 1; background: #000000; "><span class="sc3">CC</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0"> sdcc
-</span><span class="sc3">FLAGS</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0">  -mmcs51 --model-small 
-</span><span class="sc1">#FILENAME  == project.c
-</span><span class="sc3">FILENAME</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0"> source
-</span><span class="sc3">MAKEHEX</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0"> packihx
-</span><span class="sc3">SRC</span><span class="sc0"> </span><span class="sc4">=</span><span class="sc0"> src
-
-</span><span class="sc1">#sdcc -mmcs51 --model-small hw.c
-</span><span class="sc0">
-</span><span class="sc5">all</span><span class="sc4">:</span><span class="sc0"> project.hex
-    cp </span><span class="sc3">$(FILENAME)</span><span class="sc0">.hex  project.hex
-
-</span><span class="sc5">project.hex</span><span class="sc4">:</span><span class="sc0"> </span><span class="sc3">$(FILENAME)</span><span class="sc0">.ihx
-    </span><span class="sc3">$(MAKEHEX)</span><span class="sc0"> </span><span class="sc3">$(FILENAME)</span><span class="sc0">.ihx &gt;&gt; ./</span><span class="sc3">$(FILENAME)</span><span class="sc0">.hex
-
-</span><span class="sc3">$(FILENAME)</span><span class="sc5">.ihx</span><span class="sc4">:</span><span class="sc0">
-    </span><span class="sc3">$(CC)</span><span class="sc0"> </span><span class="sc3">$(FLAGS)</span><span class="sc0"> </span><span class="sc3">$(SRC)</span><span class="sc0">/</span><span class="sc3">$(FILENAME)</span><span class="sc0">.c
-
-</span><span class="sc5">.PHONY</span><span class="sc4">:</span><span class="sc0"> clean
-
-</span><span class="sc5">clean</span><span class="sc4">:</span><span class="sc0">
-    -rm *.hex *.ihx
-
-
-</span><span class="sc5">rebuild</span><span class="sc4">:</span><span class="sc0">
-    -rm *.hex *.ihx *.mem *.bin *.lst *.cdb *.asm *.lk *.map *.omf *.rel
-    make
-</span></div></body>
+<body onload='JumpToLine();'>
+<pre id='vimCodeElement'>
+<span id="L1" class="LineNr"> 1 </span><span class="Identifier">CC </span>= sdcc
+<span id="L2" class="LineNr"> 2 </span><span class="Identifier">FLAGS </span>=  -mmcs51 --model-small
+<span id="L3" class="LineNr"> 3 </span><span class="Comment">#FILENAME  == project.c</span>
+<span id="L4" class="LineNr"> 4 </span><span class="Identifier">FILENAME </span>= source
+<span id="L5" class="LineNr"> 5 </span><span class="Identifier">MAKEHEX </span>= packihx
+<span id="L6" class="LineNr"> 6 </span><span class="Identifier">SRC </span>= src
+<span id="L7" class="LineNr"> 7 </span>
+<span id="L8" class="LineNr"> 8 </span><span class="Comment">#sdcc -mmcs51 --model-small hw.c</span>
+<span id="L9" class="LineNr"> 9 </span>
+<span id="L10" class="LineNr">10 </span><span class="Function">all:</span> project.hex
+<span id="L11" class="LineNr">11 </span><span class="Number">    cp </span><span class="Identifier">$(FILENAME)</span><span class="Number">.hex  project.hex</span>
+<span id="L12" class="LineNr">12 </span>
+<span id="L13" class="LineNr">13 </span><span class="Function">project.hex:</span> <span class="Identifier">$(FILENAME)</span>.ihx
+<span id="L14" class="LineNr">14 </span><span class="Number">    </span><span class="Identifier">$(MAKEHEX)</span><span class="Number"> </span><span class="Identifier">$(FILENAME)</span><span class="Number">.ihx &gt;&gt; ./</span><span class="Identifier">$(FILENAME)</span><span class="Number">.hex</span>
+<span id="L15" class="LineNr">15 </span>
+<span id="L16" class="LineNr">16 </span><span class="Identifier">$(FILENAME)</span><span class="Function">.ihx:</span>
+<span id="L17" class="LineNr">17 </span><span class="Number">    </span><span class="Identifier">$(CC)</span><span class="Number"> </span><span class="Identifier">$(FLAGS)</span><span class="Number"> </span><span class="Identifier">$(SRC)</span><span class="Number">/</span><span class="Identifier">$(FILENAME)</span><span class="Number">.c</span>
+<span id="L18" class="LineNr">18 </span>
+<span id="L19" class="LineNr">19 </span><span class="Statement">.PHONY:</span> clean
+<span id="L20" class="LineNr">20 </span>
+<span id="L21" class="LineNr">21 </span><span class="Function">clean:</span>
+<span id="L22" class="LineNr">22 </span><span class="Special">    -</span><span class="Number">rm *.hex *.ihx</span>
+<span id="L23" class="LineNr">23 </span>
+<span id="L24" class="LineNr">24 </span>
+<span id="L25" class="LineNr">25 </span><span class="Function">rebuild:</span>
+<span id="L26" class="LineNr">26 </span><span class="Special">    -</span><span class="Number">rm *.hex *.ihx *.mem *.bin *.lst *.cdb *.asm *.lk *.map *.omf *.rel</span>
+<span id="L27" class="LineNr">27 </span><span class="Number">    make</span>
+</pre>
+</body>
 </html>
+<!-- vim: set foldmethod=manual : -->
