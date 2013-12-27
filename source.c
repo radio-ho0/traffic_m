@@ -23,15 +23,35 @@ void display_color_light(void);
 void interrupt_startup(void) __interrupt(1);
 void num_agent(void);
 //unsigned char update_switch(void)
-void update_switch(void);
+void update_switch(void)
+{
+    unsigned char tmp;
+    EA = 0;
+    tmp = ( (P2_0 * 1 + P2_1 * 2 + P2_2 * 4 + P2_3 * 8) * 10 +  P2_4 * 1 + P2_5 * 2 + P2_6 * 4 + P2_7 * 8);
+
+    EA = 1;
+    startup[TB_GO_LR_SOTP_bit].display_count = tmp + 1;
+    startup[LR_GO_TB_STOP_bit].display_count = tmp + 1;
+  //  return tmp + 1;
+
+}
 
 void main(void)
 {
     interrupt_init();
+
+
+//   startup[1].display_count = tmp + 1;
+//   startup[3].display_count = tmp + 1;
+
     update_switch();
+
+
+
     P0 = 0x81;
     for(;;){
         num_agent();
+//        display_sun(11);
         display_color_light();
 
 	}
@@ -57,7 +77,7 @@ void interrupt_startup(void) __interrupt(1)
 
 
     if(core_count == startup[i].display_count){
-        i = (i > n_ele_startup) ? 1 : i;
+        i = (i > n_ele_startup ) ? 0 : i; // todo
         ++i;
         goal_num = startup[i].display_value;
         goal_color_light = startup[i].display_value;
@@ -71,7 +91,7 @@ void interrupt_startup(void) __interrupt(1)
 
 void display_sun(unsigned int show_num )
 {
-       if( (show_num >= 100) && (show_num <= 0)){
+       if( (show_num >= 100) || (show_num <= 0)){
            show_num  = 99;
             ten = 9;
             single =9;
